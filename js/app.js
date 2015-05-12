@@ -19,8 +19,7 @@ Enemy.prototype.update = function(dt) {
     // which will ensure the game runs at the same speed for
     // all computers.
     this.x = this.x + this.speed * dt;
-    if (this.x > 500)
-        this.x = -100;
+    if (this.x > 500) this.x = -100;
 }
 
 // Draw the enemy on the screen, required method for game
@@ -42,9 +41,9 @@ var Player = function() {
 }
 
 Player.prototype.update = function() {
-    // if ( Math.round(this.y / 80) === 1 ) {
-    //     this.score = this.score + 1;
-    // }
+    this.x = 200;
+    this.y = 380;
+    this.score = this.score + 1;
 }
 
 Player.prototype.render = function() {
@@ -62,7 +61,7 @@ Player.prototype.handleInput = function(key) {
             this.x = this.x + 100;
         }
     } else if ( key === 'up' ) {
-        if ( this.y > 60 ) {
+        if ( this.y > 0 ) {
             this.y = this.y - 80;
         }
     } else if ( key === 'down') {
@@ -83,15 +82,18 @@ Player.prototype.reset = function() {
 // Place the player object in a variable called player
 
 var allEnemies = [];
-allEnemies[0] = new Enemy(1, 300);
-allEnemies[1] = new Enemy(2, 200);
-allEnemies[2] = new Enemy(3, 150);
-allEnemies[3] = new Enemy(3, 250);
-allEnemies[6] = new Enemy(1, 200);
-allEnemies[7] = new Enemy(1, 100);
-allEnemies[8] = new Enemy(2, 300);
+
+for (var i = 0; i < 7; i++) {
+    var random_speed = getRandomNumber(10, 31) * 10;
+    var random_row = getRandomNumber(1, 4);
+    allEnemies[i] = new Enemy(random_row, random_speed);
+}
 
 var player = new Player();
+
+function getRandomNumber(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
+}
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.

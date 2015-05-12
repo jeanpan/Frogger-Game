@@ -95,8 +95,11 @@ var Engine = (function(global) {
             enemy.update(dt);
         });
 
-        // player.update();
-        // doc.getElementById('score').innerHTML = player.score;
+        if ( Math.round(player.y / 80) === 0 ) {
+            player.update();
+        }
+
+        doc.getElementById('score').innerHTML = player.score;
     }
 
     function checkCollisions() {
